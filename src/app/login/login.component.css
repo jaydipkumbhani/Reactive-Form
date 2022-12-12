@@ -1,0 +1,26 @@
+.container {
+    border: 1px solid black;
+    background-color: cadetblue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    padding: 12px;
+    border-radius: 25px;
+}
+
+.required::after {
+    content: "*";
+    color: red;
+}
+
+.form-floating>.form-select {
+    padding-top: 0.725rem;
+    padding-bottom: 0.725rem;
+}
+
+
+/* .error {
+    color: red;
+} */

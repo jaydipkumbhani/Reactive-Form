@@ -1,0 +1,143 @@
+<div class="container">
+    <h2 class="text-center">User Detaile</h2>
+    <hr>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+            <div class="form-floating col-6">
+                <input type="text" name="firstname" id="fname" class="form-control" formControlName="firstName"
+                    placeholder="First Name" required>
+                <!-- first way of formcontrol validation (shot and easy way but you need to write method (get -metahod name-(ex.firstNameCtrl) in ts file) -->
+                <span *ngIf="firstNameCtrl && firstNameCtrl.touched && firstNameCtrl.invalid"
+                    style="color: red;">Firstname is required</span>
+                <label for="fname" class="required">First Name</label>
+            </div>
+            <div class="form-floating col-6">
+                <input type="text" name="lastname" id="lname" class="form-control" formControlName="lastName"
+                    placeholder="Last Name">
+                <!-- firstway -->
+                <!-- <span *ngIf="lastName && lastName.invalid && lastName.touched" style="color: red;">Lastname is required</span> -->
+                <!-- second way of formcontrol validation (lengthy way but in this case you not need to get method required) -->
+                <span
+                    *ngIf="userForm.controls.lastName && userForm.controls.lastName.invalid && userForm.controls.lastName.touched"
+                    style="color:red">Lastname is required</span>
+                <label for="lname" class="required">Last Name</label>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-floating col-6">
+                <input type="email" name="email" id="email" class="form-control" formControlName="email"
+                    placeholder="Email">
+                <!-- this email is valid not required -->
+                <!-- <span *ngIf="email && email.invalid && email.touched" style="color: red;">This field is not valid</span> -->
+                <span
+                    *ngIf="userForm.controls.email && userForm.controls.email.invalid && userForm.controls.email.touched"
+                    style="color: red;">This field is not valid</span>
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating col-6">
+                <input type="date" name="dob" id="dob" class="form-control" [max]="getToday()" formControlName="DOB"
+                    placeholder="DOB">
+                <label for="dob">Date Of Birth</label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-2 required">
+                    <label for="gender" class="fw-bold">Gender:-</label>
+                </div>
+                <div class="col-2">
+                    <input type="radio" formControlName="gender" value="male" id="male">
+                    <label for="male"> Male</label>
+                </div>
+                <span *ngIf="gender && gender.invalid && gender.touched" style="color: red;">Gender is required</span>
+                <div class="col-2">
+                    <input type="radio" formControlName="gender" value="female" id="female">
+                    <label for="female"> Female</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <label for="Status" class="fw-bold">Status:-</label>
+                </div>
+                <div class="col-2">
+                    <input type="radio" formControlName="marriedStatus" id="married" value="married">
+                    <label for="married"> Married</label>
+                </div>
+                <div class="col-2">
+                    <input type="radio" formControlName="marriedStatus" id="unmarried" value="unmarried">
+                    <label for="unmarried"> Unmarried</label>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div>
+                <p class="fw-bold required">Income:-</p>
+                <div class="row">
+                    <div class="col">
+                        <input class="form-check-input" type="checkbox" value="100,000" formControlName="income"
+                            id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault"> &#60;&#8377;100,000 </label>
+                    </div>
+                    <div class="col">
+                        <input class="form-check-input" type="checkbox" formControlName="income" id="flexCheckDefault1"
+                            value="&#8377;100,000 - &#8377;300,000">
+                        <label class="form-check-label" for="flexCheckDefault1"> &#8377;100,000 - &#8377;300,000
+                        </label>
+                    </div>
+                    <div class="col">
+                        <input class="form-check-input" type="checkbox" formControlName="income"
+                            value="&#8377;300,000 - &#8377;500,000" id="flexCheckDefault2">
+                        <label class="form-check-label" for="flexCheckDefault2"> &#8377;300,000 - &#8377;500,000
+                        </label>
+                    </div>
+                    <div class="col">
+                        <input class="form-check-input" type="checkbox" value="&#62;&#8377;500,000"
+                            formControlName="income" id="flexCheckDefault3">
+                        <label class="form-check-label" for="flexCheckDefault3"> &#62;&#8377;500,000 </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-floating col-4">
+                <input type="text" name="city" formControlName="city" id="city" class="form-control" placeholder="City">
+                <label for="city">City</label>
+            </div>
+            <div class="form-floating col-4">
+                <input type="text" name="state" id="state" formControlName="state" class="form-control"
+                    placeholder="State">
+                <label for="state">State</label>
+            </div>
+            <div class="form-floating col-4">
+                <select class="form-select" id="country" formControlName="country">
+                    <option value="" selected disabled hidden>select country</option>
+                    <option value="India">India</option>
+                    <option value="Canada">Canada</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="row">
+                <div class="col-4">
+                    <label for="coronapositive" class="fw-bold">Is Corona Positive? :-</label>
+                </div>
+                <div class="col-2">
+                    <input type="radio" id="positive" formControlName="corona" value="positive">
+                    <label for="positive"> Positive</label>
+                </div>
+                <div class="col-2">
+                    <input type="radio" id="negative" formControlName="corona" value="nagative">
+                    <label for="negative"> Negative</label>
+                </div>
+            </div>
+        </div>
+        <div class="input-group">
+            <span class="input-group-text fw-bold">Note</span>
+            <textarea class="form-control" formControlName="note" name="note" aria-label="note"></textarea>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!userForm.valid">Submit</button>
+    </form>
+</div>
